@@ -1,0 +1,34 @@
+<div>
+    <form [formGroup]="editForm" (ngSubmit)="updateRecord()">   
+        <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>User Name</mat-label>
+            <input matInput formControlName="name" required/>
+            <mat-error *ngIf="name.hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>User email</mat-label>
+            <input matInput formControlName="email" type="email" required/>
+            <mat-error *ngIf="email.hasError('required')">This field is required</mat-error>
+            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">Please enter a valid email address</mat-error>
+        </mat-form-field>
+        <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>IC No.</mat-label>
+            <input matInput formControlName="ic" required/>
+            <mat-error *ngIf="ic.hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>User Address</mat-label>
+            <input matInput formControlName="address" required/>
+            <mat-error *ngIf="address.hasError('required')">This field is required</mat-error>
+        </mat-form-field>
+        <mat-radio-group formControlName="personnelType" required>
+            <mat-radio-button class="radioButtonType" value="nurse">Nurse</mat-radio-button>
+            <mat-radio-button class="radioButtonType" value="doctor">Doctor</mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="personnelType.hasError('required')">This field is required</mat-error>
+        <div>
+            <button mat-raised-button color="accent" type="submit">Save</button>
+        </div>
+    </form>
+</div>
+

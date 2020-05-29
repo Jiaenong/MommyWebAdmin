@@ -1,0 +1,64 @@
+.matCard_cover{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF9E80;
+}
+
+.login_h1{
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    margin-bottom: 3%;
+}
+
+.matCard_login{
+    width: 400px;
+    border-radius: 10px;
+}
+
+.login_container{
+    width: 100%;
+}
+
+.imageLogin{
+    width:100%;
+}
+
+.fullWidth{
+    width: 100%;
+}
+
+.cancel_button{
+    background-color: red;
+    color: white;
+}
+
+.login_button{
+    background-color: #FF9E80;
+    color: white;
+}
+
+.card_title{
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 25px;
+    color: #FF9E80;
+}
+
+@media screen and (max-width: 400px){
+    .matCard_login{
+        width: auto;
+    }
+
+    .login_h1{
+        font-family: monospace;
+        font-weight: bold;
+        font-size: 30px;
+        color: white;
+        margin-bottom: 3%;
+    }
+}

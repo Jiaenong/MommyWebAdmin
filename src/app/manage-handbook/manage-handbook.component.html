@@ -1,0 +1,47 @@
+<mat-sidenav-container class="side_Nav_container">
+    <mat-sidenav #sidenav mode="over">
+        <mat-toolbar color="accent">Menu</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item routerLink="/manage-handbook/{{id}}">Manage Handbook</a>
+            <a mat-list-item routerLink="/admin-main-view/{{id}}">Manage Medical Personnel</a>
+            <a mat-list-item routerLink="/admin-profile/{{id}}">Profile</a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button mat-icon-button (click)="sidenav.toggle()" class="sideNav_icon"><mat-icon>menu</mat-icon></button>
+            <span class="filler">Admin Panel</span>
+            <button mat-button (click)="goBack()" class="logout_button">Log out</button>
+        </mat-toolbar>
+        <div class="card_container">
+            <div class="loading_indicator">
+                <mat-spinner [style.display]="isSpinnerVisible ? 'block':'none'" color="accent" mode="indeterminate"></mat-spinner>
+            </div>
+            <mat-card [style.display]="isCardVisible ? 'block':'none'" class="card_guideline">
+                <mat-card-header>
+                    <mat-card-title>Manage Handbook</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <form [formGroup]="handbookForm">
+                        <mat-form-field class="fullWidth">
+                            <label>Pregnancy Guideline :</label>
+                            <textarea matInput rows="20" cols="10" formControlName="guideline">
+                            </textarea>
+                        </mat-form-field>
+                        <mat-slide-toggle formControlName="enableEdit" (change)="onEndableEdit()">Enable</mat-slide-toggle>
+                    </form>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-fab class="update" (click)="onUpdateContent()" matTooltip ="Update">
+                        <mat-icon>update</mat-icon>
+                    </button>
+                    <button mat-fab class="undo" (click)="onUndoContent()" matTooltip ="Undo">
+                        <mat-icon>undo</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </mat-sidenav-content>
+    
+</mat-sidenav-container>

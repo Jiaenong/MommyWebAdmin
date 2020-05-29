@@ -1,0 +1,36 @@
+<div class="matCard_cover">
+    <h1 class="login_h1">Mommy Health App</h1>
+    <mat-spinner [style.display]="isCardSpinnerVisible ? 'block':'none'" [color] = "color"></mat-spinner>
+    <mat-card [style.display]="isCardVisible ? 'block':'none'" class="matCard_login">
+        <mat-card-header>
+            <mat-card-title class="card_title">Welcome! Admin</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)" rowHeight="200px" gutterSize="5px">
+                <mat-grid-tile>
+                    <img mat-card-image src="assets/loginView.jpg" class="imageLogin"/>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <form [formGroup]="loginForm" class="login_container">
+                        <mat-form-field class="fullWidth" appearance="outline">
+                            <mat-label>Admin ID</mat-label>
+                            <input matInput formControlName="id" required/> 
+                            <mat-error *ngIf="id.hasError('required')">This field is required</mat-error>
+                            <mat-error *ngIf="id.hasError('invalid')">Invalid User</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="fullWidth" appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput formControlName="password" type="password" required/>
+                            <mat-error *ngIf="password.hasError('required')">This field is required</mat-error>
+                            <mat-error *ngIf="password.hasError('invalid')">Invalid User</mat-error>
+                        </mat-form-field>
+                    </form>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-raised-button class="login_button" (click)="onCheckLogin()">Login</button>
+            <button mat-raised-button class="cancel_button" (click)="clearField()">Cancel</button>
+        </mat-card-actions>
+    </mat-card>    
+</div>

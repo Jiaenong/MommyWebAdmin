@@ -1,0 +1,67 @@
+.filler{
+    flex: 1 1 auto;
+    color: white;
+}
+
+.sideNav_icon{
+    color: white;
+}
+
+.logout_button{
+    color: white;
+}
+
+.side_Nav_container{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.fullWidth{
+    width: 50%;
+}
+
+.radioButtonType{
+    margin-left: 10px;
+}
+
+.cardCreate{
+    margin-top: 10px;
+    width: 800px;
+    margin-bottom: 10px;
+}
+
+.coverCard{
+    display: flex;
+    justify-content: center;
+}
+
+#emptyRadio{
+    visibility: hidden;
+}
+
+.clear{
+    margin-left: 10px;
+}
+
+table{
+    width: 80%;
+}
+
+.filter{
+    width: 80%;
+}
+
+.paginator{
+   margin-left: 10%;
+   margin-right: 10%;
+}
+
+.dataTable{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}

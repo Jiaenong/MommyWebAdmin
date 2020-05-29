@@ -1,0 +1,52 @@
+.filler{
+    flex: 1 1 auto;
+    color: white;
+}
+
+.sideNav_icon{
+    color: white;
+}
+
+.logout_button{
+    color: white;
+}
+
+.side_Nav_container{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.card_container{
+    display: flex;
+    justify-content: center;
+}
+
+.card_guideline{
+    margin-top: 20px;
+    width: 800px;
+    margin-bottom: 10px;
+}
+
+.undo{
+    margin-left: 10px;
+}
+
+.fullWidth{
+    width: 100%;
+}
+
+.loading_indicator{
+    position: absolute;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}

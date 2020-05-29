@@ -1,0 +1,135 @@
+<mat-sidenav-container class="side_Nav_container">
+    <mat-sidenav #sidenav mode="over">
+        <mat-toolbar color="accent">Menu</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item routerLink="/manage-handbook/{{id}}">Manage Handbook</a>
+            <a mat-list-item routerLink="/admin-main-view/{{id}}">Manage Medical Personnel</a>
+            <a mat-list-item routerLink="/admin-profile/{{id}}">Profile</a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button mat-icon-button (click)="sidenav.toggle()" class="sideNav_icon"><mat-icon>menu</mat-icon></button>
+            <span class="filler">Admin Panel</span>
+            <button mat-button (click)="goBack()" class="logout_button">Log out</button>
+        </mat-toolbar>
+
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label = "Personnel List">
+                <div class="dataTable">
+                    <mat-form-field class="filter">
+                        <mat-label>Filter</mat-label>
+                        <input matInput (keyup)="applyFilter($event)">
+                    </mat-form-field>
+                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                        <ng-container matColumnDef="medicalPersonnelId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                            <td mat-cell *matCellDef="let element"> {{element.medicalPersonnelId}} </td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="IC">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> IC </th>
+                            <td mat-cell *matCellDef="let element"> {{element.IC}} </td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="address">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+                            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="type">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+                            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                        </ng-container>
+        
+                        <ng-container matColumnDef="edit">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-raised-button color="accent" (click)="openDialog(element)" matTooltip ="Edit">Edit</button>
+                            </td>
+                        </ng-container>
+            
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-spinner [style.display]="isSpinnerVisible ? 'block':'none'" [color] = "color"></mat-spinner>
+                </div>
+                <mat-paginator class="paginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </mat-tab>
+            <mat-tab label = "Create Personnel">
+                <div class="coverCard">
+                    <mat-card class="cardCreate">
+                        <mat-card-header>
+                            <mat-card-title>Create Medcial Personnel</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <mat-grid-list cols="1" rowHeight="300px">
+                                <mat-grid-tile>
+                                    <form [formGroup]="createForm">
+                                        <mat-form-field class="fullWidth" appearance="outline">
+                                            <mat-label>User Name</mat-label>
+                                            <input matInput formControlName="name" required/>
+                                            <mat-error *ngIf="name.hasError('required')">This field is required</mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field class="fullWidth" appearance="outline">
+                                            <mat-label>IC No.</mat-label>
+                                            <input matInput formControlName="ic" required/>
+                                            <mat-error *ngIf="ic.hasError('required')">This field is required</mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field class="fullWidth" appearance="outline">
+                                            <mat-label>User email</mat-label>
+                                            <input matInput formControlName="email" type="email" required/>
+                                            <mat-error *ngIf="email.hasError('required')">This field is required</mat-error>
+                                            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">Please enter a valid email address</mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field class="fullWidth" appearance="outline">
+                                            <mat-label>User Address</mat-label>
+                                            <input matInput formControlName="address" required/>
+                                            <mat-error *ngIf="address.hasError('required')">This field is required</mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field class="fullWidth" appearance="outline">
+                                            <mat-label>Password</mat-label>
+                                            <input matInput formControlName="password" type="password" required/>
+                                            <mat-error *ngIf="password.hasError('required')">This field is required</mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field class="fullWidth" appearance="outline">
+                                            <mat-label>Confirm Password</mat-label>
+                                            <input matInput formControlName="confrimPassword" type="password" required/>
+                                            <mat-error *ngIf="confrimPassword.hasError('required')">This field is required</mat-error>
+                                            <mat-error *ngIf="confrimPassword.hasError('invalid')">Password must be same</mat-error>
+                                        </mat-form-field>
+                                        <mat-radio-group formControlName="personnelType" required>
+                                            <mat-radio-button class="radioButtonType" value="nurse">Nurse</mat-radio-button>
+                                            <mat-radio-button class="radioButtonType" value="doctor">Doctor</mat-radio-button>
+                                        </mat-radio-group>
+                                        <mat-error *ngIf="personnelType.hasError('required')">This field is required</mat-error>
+                                    </form>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </mat-card-content>
+                        <mat-card-actions align="end">
+                            <button mat-fab class="save" (click)="onSaveRecord()" matTooltip ="Save">
+                                <mat-icon>save</mat-icon>
+                            </button>
+                            <button mat-fab class="clear" (click)="onClearField()" matTooltip ="Clear">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

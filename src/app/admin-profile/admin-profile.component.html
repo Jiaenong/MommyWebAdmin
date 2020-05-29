@@ -1,0 +1,99 @@
+<mat-sidenav-container class="side_Nav_container">
+    <mat-sidenav #sidenav mode="over">
+        <mat-toolbar color="accent">Menu</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item routerLink="/manage-handbook/{{id}}">Manage Handbook</a>
+            <a mat-list-item routerLink="/admin-main-view/{{id}}">Manage Medical Personnel</a>
+            <a mat-list-item routerLink="/admin-profile/{{id}}">Profile</a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button mat-icon-button (click)="sidenav.toggle()" class="sideNav_icon"><mat-icon>menu</mat-icon></button>
+            <span class="filler">Admin Panel</span>
+            <button mat-button (click)="goBack()" class="logout_button">Log out</button>
+        </mat-toolbar>
+        <div class="card_container">
+            <div class="loading_indicator">
+                <mat-spinner [style.display]="isSpinnerVisible ? 'block':'none'" color = "accent" mode="indeterminate"></mat-spinner>
+            </div>
+            <mat-card [style.display]="isCardVisible ? 'block':'none'" class="card_profile">
+                <mat-card-header>
+                    <mat-card-title>Admin Profile</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="5px">
+                        <mat-grid-tile>
+                            <div class="profileImage_container">
+                                <img mat-card-image src="{{adminGender}}" class="profile_image"/>
+                                <h2>{{adminName}}</h2>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile class="profileDetail_container">
+                            <form [formGroup]="profileForm" class="form_container">
+                                <mat-form-field class="fullWidth" appearance="outline">
+                                    <mat-label>Admin ID</mat-label>
+                                    <input matInput formControlName="adminId" readonly/>
+                                </mat-form-field>
+                                <mat-form-field class="fullWidth" appearance="outline">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput formControlName="name" required/>
+                                    <mat-error *ngIf="name.hasError('required')">This field is required</mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="fullWidth" appearance="outline">
+                                    <mat-label>Age</mat-label>
+                                    <input matInput formControlName="age" required/>
+                                    <mat-error *ngIf="age.hasError('required')">This field is required</mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="fullWidth" appearance="outline">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput formControlName="email" required/>
+                                    <mat-error *ngIf="email.hasError('required')">This field is required</mat-error>
+                                    <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">Please enter a valid email address</mat-error>
+                                </mat-form-field>
+                                <mat-radio-group formControlName="gender" required>
+                                    <mat-radio-button class="radioButtonGender" value="Male">Male</mat-radio-button>
+                                    <mat-radio-button class="radioButtonGender" value="Female">Female</mat-radio-button>
+                                </mat-radio-group>
+                                <mat-error *ngIf="gender.hasError('required')">This field is required</mat-error>
+                                <mat-form-field class="fullWidth" appearance="outline">
+                                    <mat-label>Address</mat-label>
+                                    <input matInput formControlName="address" required/>
+                                    <mat-error *ngIf="address.hasError('required')">This field is required</mat-error>
+                                </mat-form-field>
+                                <mat-slide-toggle formControlName="endable" (change)="onEnableField()">Enable</mat-slide-toggle>
+                                <mat-checkbox formControlName="updatePassword" class="chkBox_pass" (click)="onViewPassword()">Update Password</mat-checkbox>
+                                <div [style.display]="isPasswordField ? 'block':'none'">
+                                    <mat-form-field class="fullWidth" appearance="outline">
+                                        <mat-label>Old Password</mat-label>
+                                        <input matInput formControlName="oldpassword" type="password" required/>
+                                        <mat-error *ngIf="oldpassword.hasError('required')">This field is required</mat-error>
+                                        <mat-error *ngIf="oldpassword.hasError('invalid')">Password need to be the old password</mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="fullWidth" appearance="outline">
+                                        <mat-label>New Password</mat-label>
+                                        <input matInput formControlName="newpassword" type="password" required/>
+                                        <mat-error *ngIf="newpassword.hasError('required')">This field is required</mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="fullWidth" appearance="outline">
+                                        <mat-label>Confirm Password</mat-label>
+                                        <input matInput formControlName="confrimPassword" type="password" required/>
+                                        <mat-error *ngIf="confrimPassword.hasError('required')">This field is required</mat-error>
+                                        <mat-error *ngIf="confrimPassword.hasError('invalid')">Password must be same</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </form>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-fab class="update" matTooltip ="Update" (click)="onUpdateProfile()">
+                        <mat-icon>update</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </mat-sidenav-content>
+    
+</mat-sidenav-container>
