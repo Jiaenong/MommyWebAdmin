@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import {FormControl, Validators, FormBuilder, FormGroup} from '@angular/forms';
+import { Location } from '@angular/common';
 import * as firebase from 'firebase';
 import { MedicalPersonnel } from '../MedicalPersonnel';
 import {MatPaginator} from '@angular/material/paginator';
@@ -23,7 +24,8 @@ export class AdminMainViewComponent implements OnInit {
     public snackBar : MatSnackBar,
     public dialog: MatDialog,
     private route: ActivatedRoute, 
-    private router: Router
+    private router: Router,
+    private location: Location
     ) { }
 
   ref = firebase.firestore().collection('MedicalPersonnel');
@@ -168,7 +170,7 @@ export class AdminMainViewComponent implements OnInit {
         this.snackBar.open("Successfully create new record","",{
           duration: 2000
         });
-        this.onClearField();
+        window.location.reload();
       }).catch(err => {
         console.log("Error Add document", err);
       });
